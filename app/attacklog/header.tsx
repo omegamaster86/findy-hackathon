@@ -4,6 +4,7 @@ import {
 	IconChevronsRight,
 	IconX,
 } from "@tabler/icons-react";
+import Link from "next/link";
 
 export const Header = () => {
 	return (
@@ -24,9 +25,11 @@ export const Header = () => {
 				>
 					次
 				</Button>
+				<Link href="/">
 				<Button leftSection={<IconX size={18} />} variant="light" color="green">
 					閉
 				</Button>
+				</Link>
 			</Group>
 		</Group>
 	);
