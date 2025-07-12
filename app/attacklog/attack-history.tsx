@@ -20,27 +20,27 @@ interface AttackHistoryProps {
 export const AttackHistory = ({ selectedCompany }: AttackHistoryProps) => {
 	const historyData = [
 		{
-			date: "2024/02/24 23:45",
+			date: "2025/07/24 23:45",
 			result: "テスト",
 			content: "マージ後テスト",
 		},
 		{
-			date: "2024/02/25 19:01",
+			date: "2025/07/25 19:01",
 			result: "テスト",
 			content: "最新の情報が取得できるかテスト",
 		},
 		{
-			date: "2024/02/25 20:08",
+			date: "2025/07/25 20:08",
 			result: "テスト",
 			content: "テスト",
 		},
 		{
-			date: "2024/02/25 20:11",
+			date: "2025/07/25 20:11",
 			result: "テスト",
 			content: "プルダウンテスト",
 		},
 		{
-			date: "2024/03/24 19:14",
+			date: "2025/07/25 19:14",
 			result: "テスト",
 			content: "usememoテスト",
 		},
