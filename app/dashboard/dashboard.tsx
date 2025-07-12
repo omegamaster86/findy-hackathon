@@ -23,14 +23,12 @@ const Dashboard = ({ callingResult, companies }: DashboardProps) => {
 		nextCallDate: "",
 	});
 
-	// データを NativeSelect 用の形式に変換
 	const selectData =
 		callingResult?.map((item) => ({
 			value: item.id.toString(),
 			label: item.name,
 		})) || [];
 
-	// フィルタリング処理
 	const filteredCompanies =
 		companies?.filter((company) => {
 			// 架電結果（完全一致）
