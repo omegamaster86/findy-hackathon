@@ -1,6 +1,21 @@
 import { Grid, GridCol, Paper, Stack, Text, Title } from "@mantine/core";
+import type { CompanyInfo } from "@/app/types";
 
-export const PersonInfo = () => {
+interface PersonInfoProps {
+	selectedCompany?: CompanyInfo | null;
+}
+
+export const PersonInfo = ({ selectedCompany }: PersonInfoProps) => {
+	// 選択された会社がある場合はそのデータを使用、なければデフォルト値
+	const displayPerson = selectedCompany || {
+		department_name: "",
+		key_person_name: "",
+		key_person_email: "",
+		key_person_position: "",
+		key_person_phone_number: "",
+		key_person_note: "",
+	};
+
 	return (
 		<Paper shadow="sm" p="md" radius="md" withBorder>
 			<Title
@@ -20,21 +35,21 @@ export const PersonInfo = () => {
 							<Text size="sm" c="blue" fw={500} mb={4}>
 								部署名
 							</Text>
-							<Text c="dark">情報システム</Text>
+							<Text c="dark">{displayPerson.department_name || ""}</Text>
 						</div>
 
 						<div>
 							<Text size="sm" c="blue" fw={500} mb={4}>
 								氏名
 							</Text>
-							<Text c="dark">田中</Text>
+							<Text c="dark">{displayPerson.key_person_name || ""}</Text>
 						</div>
 
 						<div>
 							<Text size="sm" c="blue" fw={500} mb={4}>
 								メールアドレス
 							</Text>
-							<Text c="dark">tanaka@icloud.com</Text>
+							<Text c="dark">{displayPerson.key_person_email || ""}</Text>
 						</div>
 					</Stack>
 				</GridCol>
@@ -45,21 +60,25 @@ export const PersonInfo = () => {
 							<Text size="sm" c="blue" fw={500} mb={4}>
 								役職
 							</Text>
-							<Text c="dark">部長</Text>
+							<Text c="dark">
+								{displayPerson.key_person_position || ""}
+							</Text>
 						</div>
 
 						<div>
 							<Text size="sm" c="blue" fw={500} mb={4}>
 								電話番号
 							</Text>
-							<Text c="dark">090-3333-3456</Text>
+							<Text c="dark">
+								{displayPerson.key_person_phone_number || ""}
+							</Text>
 						</div>
 
 						<div>
 							<Text size="sm" c="blue" fw={500} mb={4}>
 								特記事項
 							</Text>
-							<Text c="dark">温厚</Text>
+							<Text c="dark">{displayPerson.key_person_note || ""}</Text>
 						</div>
 					</Stack>
 				</GridCol>
