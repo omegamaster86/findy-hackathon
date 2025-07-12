@@ -12,13 +12,17 @@ import {
 	Title,
 } from "@mantine/core";
 
-import type { CallingResultItem } from "@/app/types";
+import type { CallingResultItem, CompanyInfo } from "@/app/types";
 
 interface AttackLogFormProps {
 	callingResult: CallingResultItem[];
+	selectedCompany?: CompanyInfo | null;
 }
 
-export const AttackLogForm = ({ callingResult }: AttackLogFormProps) => {
+export const AttackLogForm = ({
+	callingResult,
+	selectedCompany,
+}: AttackLogFormProps) => {
 	return (
 		<Paper shadow="sm" p="md" radius="md" withBorder>
 			<Group mb="md" pb="sm" style={{ borderBottom: "1px solid #e3f2fd" }}>
@@ -28,6 +32,11 @@ export const AttackLogForm = ({ callingResult }: AttackLogFormProps) => {
 				<Text size="sm" c="red">
 					必須項目
 				</Text>
+				{selectedCompany && (
+					<Text size="sm" c="gray">
+						({selectedCompany.company_name})
+					</Text>
+				)}
 			</Group>
 
 			<Stack gap="lg">
