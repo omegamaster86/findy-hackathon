@@ -2,11 +2,20 @@ import { Grid, GridCol, Paper, Stack, Text, Title } from "@mantine/core";
 import type { CompanyInfo } from "@/app/types";
 
 interface CompanyInfoProps {
-	companies: CompanyInfo[];
+	selectedCompany?: CompanyInfo | null;
 }
 
-export const CompanyInformation = ({ companies }: CompanyInfoProps) => {
-	console.log(companies);
+export const CompanyInformation = ({
+	selectedCompany,
+}: CompanyInfoProps) => {
+
+	const displayCompany = selectedCompany || {
+		company_name: "",
+		company_website: "",
+		address: "",
+		registered_phone_number: "",
+	};
+
 	return (
 		<Paper shadow="sm" p="md" radius="md" withBorder>
 			<Title
@@ -26,14 +35,14 @@ export const CompanyInformation = ({ companies }: CompanyInfoProps) => {
 							<Text size="sm" c="blue" fw={500} mb={4}>
 								会社名
 							</Text>
-							<Text c="dark">スプラ会社1</Text>
+							<Text c="dark">{displayCompany.company_name}</Text>
 						</div>
 
 						<div>
 							<Text size="sm" c="blue" fw={500} mb={4}>
 								会社サイト
 							</Text>
-							<Text c="dark">http://aaa</Text>
+							<Text c="dark">{displayCompany.company_website || "未設定"}</Text>
 						</div>
 					</Stack>
 				</GridCol>
@@ -44,14 +53,16 @@ export const CompanyInformation = ({ companies }: CompanyInfoProps) => {
 							<Text size="sm" c="blue" fw={500} mb={4}>
 								住所
 							</Text>
-							<Text c="dark">東京</Text>
+							<Text c="dark">{displayCompany.address || "未設定"}</Text>
 						</div>
 
 						<div>
 							<Text size="sm" c="blue" fw={500} mb={4}>
 								登記電話番号
 							</Text>
-							<Text c="dark">03-3333-3333</Text>
+							<Text c="dark">
+								{displayCompany.registered_phone_number || "未設定"}
+							</Text>
 						</div>
 					</Stack>
 				</GridCol>
