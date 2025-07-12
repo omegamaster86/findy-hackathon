@@ -6,7 +6,6 @@ interface PersonInfoProps {
 }
 
 export const PersonInfo = ({ selectedCompany }: PersonInfoProps) => {
-	// 選択された会社がある場合はそのデータを使用、なければデフォルト値
 	const displayPerson = selectedCompany || {
 		department_name: "",
 		key_person_name: "",
