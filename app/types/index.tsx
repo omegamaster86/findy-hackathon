@@ -3,11 +3,6 @@ export interface CallingResultItem {
   name: string;
 }
 
-export interface CallingResultItem {
-  id: number;
-  name: string;
-}
-
 export interface CompanyInfo {
   company_id: number;
   company_name: string;
