@@ -1,5 +1,8 @@
+"use client";
+
 import { Input, NativeSelect } from "@mantine/core";
 import Link from "next/link";
+import { useState } from "react";
 import type { CallingResultItem, CompanyInfo } from "../types";
 import { TableCell } from "./_components/table-cell";
 import { TableHeader } from "./_components/table-header";
@@ -10,6 +13,16 @@ interface DashboardProps {
 }
 
 const Dashboard = ({ callingResult, companies }: DashboardProps) => {
+	// フィルター状態
+	const [filters, setFilters] = useState({
+		callingResult: "",
+		companyName: "",
+		phoneNumber: "",
+		industry: "",
+		salesPerson: "",
+		nextCallDate: "",
+	});
+
 	// データを NativeSelect 用の形式に変換
 	const selectData =
 		callingResult?.map((item) => ({
@@ -17,7 +30,50 @@ const Dashboard = ({ callingResult, companies }: DashboardProps) => {
 			label: item.name,
 		})) || [];
 
-	const displayCompanies = companies && companies.length > 0 ? companies : [];
+	// フィルタリング処理
+	const filteredCompanies =
+		companies?.filter((company) => {
+			// 架電結果（完全一致）
+			if (filters.callingResult && filters.callingResult !== "") {
+				// 実際の架電結果データがないため、この条件はスキップ
+			}
+
+			if (
+				filters.companyName &&
+				!company.company_name
+					.toLowerCase()
+					.includes(filters.companyName.toLowerCase())
+			) {
+				return false;
+			}
+
+			if (filters.phoneNumber) {
+				const phoneToCheck =
+					company.registered_phone_number ||
+					company.key_person_phone_number ||
+					"";
+				if (!phoneToCheck.includes(filters.phoneNumber)) {
+					return false;
+				}
+			}
+
+			if (filters.industry && company.department_name !== filters.industry) {
+				return false;
+			}
+
+			if (filters.salesPerson) {
+				// 実際の営業担当データがないため、この条件はスキップ
+			}
+
+			if (filters.nextCallDate) {
+				// 実際の次回架電日データがないため、この条件はスキップ
+			}
+
+			return true;
+		}) || [];
+
+	const displayCompanies =
+		filteredCompanies.length > 0 ? filteredCompanies : [];
 
 	return (
 		<div>
@@ -26,12 +82,51 @@ const Dashboard = ({ callingResult, companies }: DashboardProps) => {
 				<NativeSelect
 					data={[{ value: "", label: "架電結果" }, ...selectData]}
 					w={150}
+					value={filters.callingResult}
+					onChange={(event) =>
+						setFilters({ ...filters, callingResult: event.currentTarget.value })
+					}
 				/>
-				<Input placeholder="会社名" w={150} />
-				<Input placeholder="電話番号" w={150} />
-				<Input placeholder="業界" w={150} />
-				<Input placeholder="営業担当" w={150} />
-				<Input placeholder="次回架電日" w={150} />
+				<Input
+					placeholder="会社名"
+					w={150}
+					value={filters.companyName}
+					onChange={(event) =>
+						setFilters({ ...filters, companyName: event.currentTarget.value })
+					}
+				/>
+				<Input
+					placeholder="電話番号"
+					w={150}
+					value={filters.phoneNumber}
+					onChange={(event) =>
+						setFilters({ ...filters, phoneNumber: event.currentTarget.value })
+					}
+				/>
+				<Input
+					placeholder="業界"
+					w={150}
+					value={filters.industry}
+					onChange={(event) =>
+						setFilters({ ...filters, industry: event.currentTarget.value })
+					}
+				/>
+				<Input
+					placeholder="営業担当"
+					w={150}
+					value={filters.salesPerson}
+					onChange={(event) =>
+						setFilters({ ...filters, salesPerson: event.currentTarget.value })
+					}
+				/>
+				<Input
+					placeholder="次回架電日"
+					w={150}
+					value={filters.nextCallDate}
+					onChange={(event) =>
+						setFilters({ ...filters, nextCallDate: event.currentTarget.value })
+					}
+				/>
 			</div>
 
 			{/* テーブル部分 */}
