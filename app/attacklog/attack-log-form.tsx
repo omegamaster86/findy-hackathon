@@ -12,7 +12,13 @@ import {
 	Title,
 } from "@mantine/core";
 
-export const AttackLogForm = () => {
+import type { CallingResultItem } from "@/app/types";
+
+interface AttackLogFormProps {
+	callingResult: CallingResultItem[];
+}
+
+export const AttackLogForm = ({ callingResult }: AttackLogFormProps) => {
 	return (
 		<Paper shadow="sm" p="md" radius="md" withBorder>
 			<Group mb="md" pb="sm" style={{ borderBottom: "1px solid #e3f2fd" }}>
@@ -30,11 +36,10 @@ export const AttackLogForm = () => {
 						<Select
 							label="架電結果"
 							placeholder="架電結果を選択"
-							data={[
-								{ value: "成功", label: "成功" },
-								{ value: "失敗", label: "失敗" },
-								{ value: "不在", label: "不在" },
-							]}
+							data={callingResult.map((result) => ({
+								value: result.id.toString(),
+								label: result.name,
+							}))}
 							styles={{
 								label: { color: "#1976d2", fontSize: "14px", fontWeight: 500 },
 							}}
