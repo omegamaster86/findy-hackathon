@@ -1,6 +1,12 @@
 import { Grid, GridCol, Paper, Stack, Text, Title } from "@mantine/core";
+import type { CompanyInfo } from "@/app/types";
 
-export const CompanyInfo = () => {
+interface CompanyInfoProps {
+	companies: CompanyInfo[];
+}
+
+export const CompanyInformation = ({ companies }: CompanyInfoProps) => {
+	console.log(companies);
 	return (
 		<Paper shadow="sm" p="md" radius="md" withBorder>
 			<Title
