@@ -1,7 +1,6 @@
-import React from 'react'
 import type { CompanyInfo } from '../types';
-import { TableHeader } from './_components/table-header';
 import { TableCell } from './_components/table-cell';
+import { TableHeader } from './_components/table-header';
 
 interface CompanyListProps {
   companies: CompanyInfo[];
