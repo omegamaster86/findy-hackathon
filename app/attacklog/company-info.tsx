@@ -1,14 +1,18 @@
 import { Grid, GridCol, Paper, Stack, Text, Title } from "@mantine/core";
 import type { CompanyInfo } from "@/app/types";
+import Link from "next/link";
 
 interface CompanyInfoProps {
 	selectedCompany?: CompanyInfo | null;
 }
 
-export const CompanyInformation = ({
-	selectedCompany,
-}: CompanyInfoProps) => {
+// 30文字以降を「...」で省略する関数
+const truncateText = (text: string, maxLength: number = 30): string => {
+	if (!text) return "";
+	return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+};
 
+export const CompanyInformation = ({ selectedCompany }: CompanyInfoProps) => {
 	const displayCompany = selectedCompany || {
 		company_name: "",
 		company_website: "",
@@ -42,7 +46,25 @@ export const CompanyInformation = ({
 							<Text size="sm" c="blue" fw={500} mb={4}>
 								会社サイト
 							</Text>
-							<Text c="dark">{displayCompany.company_website || "未設定"}</Text>
+							{displayCompany.company_website ? (
+								<Text c="dark">
+									<Link
+										href={
+											displayCompany.company_website.startsWith("http")
+												? displayCompany.company_website
+												: `https://${displayCompany.company_website}`
+										}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-blue-600 hover:text-blue-800 hover:underline"
+										title={displayCompany.company_website}
+									>
+										{truncateText(displayCompany.company_website)}
+									</Link>
+								</Text>
+							) : (
+								<Text c="dark"></Text>
+							)}
 						</div>
 					</Stack>
 				</GridCol>
