@@ -7,10 +7,17 @@ import {
 	TableTh,
 	TableThead,
 	TableTr,
+	Text,
 	Title,
 } from "@mantine/core";
 
-export const AttackHistory = () => {
+import type { CompanyInfo } from "@/app/types";
+
+interface AttackHistoryProps {
+	selectedCompany?: CompanyInfo | null;
+}
+
+export const AttackHistory = ({ selectedCompany }: AttackHistoryProps) => {
 	const historyData = [
 		{
 			date: "2024/02/24 23:45",
@@ -49,6 +56,11 @@ export const AttackHistory = () => {
 				style={{ borderBottom: "1px solid #e3f2fd" }}
 			>
 				架電履歴
+				{selectedCompany && (
+					<Text size="sm" c="gray" display="inline" ml="sm">
+						({selectedCompany.company_name})
+					</Text>
+				)}
 			</Title>
 
 			<ScrollArea>
